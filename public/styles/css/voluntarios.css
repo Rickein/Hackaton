@@ -2,8 +2,6 @@
     border: none;
     background: none;
 }
-
-
   .icon{
     width: 30px;
     height: 30px;
@@ -49,3 +47,11 @@
   .font-s20{
     font-size: 20px;
   }
+
+  .bg-flat {
+    background-color: #007365;
+}
+
+.bg-warning{
+  background-color: #df8502;
+}

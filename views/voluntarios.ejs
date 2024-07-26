@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectando voluntarios</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/voluntarios.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+    <link rel="stylesheet" href="/public/styles/css/loader.css">
+</head>
+
+<body>
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+        <%- include('header.ejs') %>
+            <main id="main-container">
+                <div class="bg-amethyst-light">
+                    <section class="content content-full content-boxed push-50-t">
+                        <div class="push-20-t push-20 text-center">
+                            <h1 class="h2 text-white push-10 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">Gestão de Usuarios.</h1>
+                        </div>
+                    </section>
+                </div>
+                
+                <div class="bg-gray-light">
+                    <section class="content content-boxed">
+                        <div class="push-50-t push-20">
+                            <div class="row">
+                                <div class="col-md-4 visibility-hidden" data-toggle="appear"
+                                    data-class="animated zoomIn">
+                                    <div class="block block-rounded">
+                                        <div class="block-header bg-gray-light">
+                                            <ul class="block-options">
+                                            </ul>
+                                            <h3 class="block-title"></h3>
+                                        </div>
+                                        <div class="block-content block-content-full text-center bg-flat border-b">
+                                            <button class="btnNovoUsuario" onclick="AbrirModalNovoVoluntario()">
+                                                <div
+                                                    class="item item-2x item-circle bg-crystal-op push-20-t push-20 animated fadeIn">
+                                                    <i class="si si-plus text-white"></i>
+                                                </div>
+                                                <div class="text-white-op">
+                                                    <em>Adicionar novo Voluntário</em>
+                                                </div>
+                                                <div class="text-white-op">
+                                                    <em>&nbsp;</em>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% Voluntarios.forEach(e => { %>
+                                        <div class="col-md-4 visibility-hidden" data-toggle="appear"
+                                            data-class="animated zoomIn">
+                                            <div class="block block-rounded border">
+                                                <div class="block-header  border-b">
+                                                    <ul class="block-options">
+                                                        <li>
+                                                            <button type="button" title="Editar"
+                                                                onclick="AbrirModalEditarVoluntario('<%= e.id_usuarios%>')"><i
+                                                                    class="si si-pencil"></i></button>
+                                                        </li>
+                                                        <li>
+                                                            <button type="button" title="Excluir"
+                                                                onclick="RemoverVoluntario('<%= e.id_usuarios%>')"><i
+                                                                    class="si si-close"></i></button>
+                                                        </li>
+                                                    </ul>
+                                                    <h3 class="block-title"><%= e.nome_completo_usuarios%></h3>
+                                                </div>
+                                                <div
+                                                    class="block-content block-content-full text-center border-b
+                                                    <%= e.id_tipo_usuario == '1' ? "bg-city-dark" : "bg-warning" %>">
+                                                    <button class="btnNovoUsuario"
+                                                        onclick="AbrirModalNivel('<%= e.id_usuarios%>')">
+                                                        <div
+                                                            class="item item-2x item-circle bg-crystal-op push-20-t push-20 animated fadeIn">
+                                                            <i class=" <%= e.id_tipo_usuario == '1' ? "si si-user" : "si si-star" %> text-white"></i>
+                                                     
+                                                        </div>
+                                                        <div class="text-white-op">
+                                                            <em><%= e.id_tipo_usuario == '1' ? "Comum" : "Administrador" %></em>
+                                                        </div>
+                                                        <div class="text-white-op">
+                                                            <em>Nivel <strong><%= e.nivel_usuarios%></strong></em>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <div class="modal fade in" id="ModalNovoVoluntario" tabindex="-1" role="dialog"
+                aria-labelledby="ModalNovoIntegrante" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-popout" role="document">
+                    <div class="modal-content block block-themed block-rounded block-bordered">
+                        <div class="block-header bg-amethyst">
+                            <ul class="block-options">
+                                <li>
+                                    <button type="button" data-toggle="block-option" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <i class="si si-close"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">Novo Voluntário</h3>
+                        </div>
+                        <div class="modal-body bg-c">
+                            <form class="form-horizontal push-5-t" action="" method="post">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="NovoVoluntarioNome">Nome Completo</label>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="NovoVoluntarioNome"
+                                                name="NovoVoluntarioNome" placeholder="Informe o Nome" required>
+                                            <span class="input-group-addon"><i class="si si-user"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="NovoVoluntarioEmail">E-mail</label>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="email" id="NovoVoluntarioEmail"
+                                                name="NovoVoluntarioEmail" placeholder="Informe o E-mail" required>
+                                            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="verificaNovoEmail" class="none" role="alert"></div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-12 EsconderMostrar">
+                                        <label class="" for="NovoVoluntarioSenha">Senha</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" id="NovoVoluntarioSenha"
+                                                name="NovoVoluntarioSenha" placeholder="Informe a Senha" required>
+                                            <span class="input-group-addon" title="Mostrar/Esconder Senha"><i
+                                                    class="css-input fa fa-eye" id="ocultarSenha"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="verificaSenha" class="none" role="alert"></div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 EsconderMostrar">
+                                        <label class="" for="NovoVoluntarioConfirmeSenha">Confirme a Senha</label>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" id="NovoVoluntarioConfirmeSenha"
+                                                name="NovoVoluntarioConfirmeSenha" placeholder="Confirme a senha"
+                                                required>
+                                            <span class="input-group-addon" title="Mostrar/Esconder Senha"><i
+                                                    class="css-input fa fa-eye" id="ocultarConfirmacaoSenha"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="NovoVoluntarioFuncao">Tipo de Usuario</label>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <select name="Tipo" id="NovoTipo" class="form-control">
+                                                <option value="1">Comum</option>
+                                                <option value="2">Administrador</option>
+                                            </select>
+                                            <span class="input-group-addon"><i class="si si-wrench"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="" type="hidden" id="NovoVoluntarioIdEquipe" name="NovoVoluntarioIdEquipe" value="">
+                            </form>
+                        </div>
+                        <div class="modal-footer bg-c">
+                            <div class="col-xs-12">
+                                <button type="button"
+                                    class="btn-rounded block-content block-content-full block-content-mini text-center text-white bg-success btn"
+                                    onclick="NovoVoluntario()">
+                                    <span class="font-w600 text-center badge-default">
+                                        <i class="fa fa-plus push-5-r"></i>Adicionar Voluntario</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade in" id="ModalEditarIntegrante" tabindex="-1" role="dialog"
+                aria-labelledby="ModalNovoIntegrante" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-popout" role="document">
+                    <div class="modal-content block block-themed block-rounded block-bordered">
+                        <div class="block-header bg-amethyst">
+                            <ul class="block-options">
+                                <li>
+                                    <button type="button" data-toggle="block-option" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <i class="si si-close"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">Editar Voluntário</h3>
+                        </div>
+                        <div class="modal-body bg-c">
+                            <form class="form-horizontal push-5-t" action="" method="post">
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="EditarVoluntarioNome">Nome Completo</label>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="EditarVoluntarioNome"
+                                                name="EditarVoluntarioNome" placeholder="Informe o Nome" required>
+                                            <span class="input-group-addon"><i class="si si-user"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="EditarVoluntarioEmail">E-mail</label>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="email" id="EditarVoluntarioEmail"
+                                                name="EditarVoluntarioEmail" placeholder="Informe o E-mail" required>
+                                            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="verificaEditarEmail" class="none" role="alert"></div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-12" for="EditarVoluntarioTipo">Tipo de Usuario</label>
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
+                                            <select name="Tipo" id="EditarVoluntarioTipo" class="form-control">
+                                                <option value="1">Comum</option>
+                                                <option value="2">Administrador</option>
+                                            </select>
+                                            <span class="input-group-addon"><i class="si si-wrench"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="" type="hidden" id="EditarVoluntarioId" name="EditarVoluntarioId" value="" >
+                            </form>
+                        </div>
+                        <div class="modal-footer bg-c">
+                            <div class="col-xs-12">
+                                <button type="button"
+                                    class="btn-rounded block-content block-content-full block-content-mini text-center text-white bg-warning btn"
+                                    onclick="EditarVoluntario()">
+                                    <span class="font-w600 text-center badge-default">
+                                        <i class="fa fa-pencil push-5-r"></i>Editar Voluntario</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade in" id="ModalNiveis" tabindex="-1" role="dialog"
+                aria-labelledby="ModalNovoIntegrante" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-popout" role="document">
+                    <div class="modal-content block block-themed block-rounded block-bordered">
+                        <div class="block-header bg-amethyst">
+                            <ul class="block-options">
+                                <li>
+                                    <button type="button" data-toggle="block-option" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <i class="si si-close"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title text-white">Nivel do voluntário</h3>
+                        </div>
+                        <div class="modal-body bg-c text-center">
+
+                            <em id="NivelVoluntarioNome" class="block-title font-s20 font-"></em>
+                            <input class="" type="hidden" id="NivelVoluntarioId" name="NivelVoluntarioId" value="">
+
+                            <div class="font-s20 push-10-t">
+                                <em>Nivel atual <strong id="NivelVoluntario"></strong></em>
+                            </div>
+
+                            <div class="col-lg-12 push-20-t">
+                                <div class="col-lg-6">
+                                    <button type="button" class="btn btn-block text-center text-white bg-success"
+                                        onclick="SubirNivelVoluntario()">
+                                        <span class="font-w600 text-center badge-default">
+                                            <i class="fa fa-chevron-circle-up push-5-r"></i>Subir nivel</span>
+                                    </button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="btn btn-block text-center text-white bg-danger btn"
+                                        onclick="DescerNivelVoluntario()">
+                                        <span class="font-w600 text-center badge-default">
+                                            <i class="fa fa-chevron-circle-down push-5-r"></i>Descer Nivel</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer bg-c">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    <%- include('footer.ejs') %>
+</body>
+
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/jquery-ui/jquery-ui.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/core/sweetalert2.all.min.js"></script>
+<script src="/public/js/core/toastr.min.js"></script>
+<script src="/public/js/pages/Voluntarios.js"></script>
+
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear', 'appear-countTo']);
+    });
+</script>

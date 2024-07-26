@@ -45,6 +45,9 @@ app.use('/Login', Login);
 const Voluntariado = require("./src/routes/Voluntariado");
 app.use('/Voluntariado', Voluntariado);
 
+const Voluntarios = require("./src/routes/Voluntarios");
+app.use('/Voluntarios', Voluntarios);
+
 const Api = require("./src/routes/api");
 app.use('/api', Api);
 

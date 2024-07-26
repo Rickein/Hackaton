@@ -9,6 +9,7 @@
   "author": "Rick Veras",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.44.4",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",

@@ -284,9 +284,7 @@ function NovoUsuario() {
     
 }
 
-function PostLogin(nome, email, senha,tipoUsuario) {
-
-    
+function PostLogin(nome, email, senha,tipoUsuario) { 
     $.ajax({
         type: "POST",
         url: "/api/InserirUsuario",
