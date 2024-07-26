@@ -1,0 +1,51 @@
+.btnNovoUsuario{
+    border: none;
+    background: none;
+}
+
+
+  .icon{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url('/imgs/olho_preto.png');
+    background-size: cover;
+  }
+  .icon2{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: url('/imgs/olho_preto.png');
+    background-size: cover;
+  }
+  .hide{
+    background: url('/imgs/olho_preto_invisivel.png');
+    background-size: cover;
+  }
+
+  .EsconderMostrar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .alert{
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .none{
+    display: none;
+  }
+
+  .bg-c{
+    background-color: #f3f3f3;
+  }
+
+  .font-s20{
+    font-size: 20px;
+  }

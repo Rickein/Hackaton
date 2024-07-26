@@ -1,0 +1,60 @@
+.block-content img {
+    max-width: 100%;
+    height: auto; /* Isso garante que a altura seja ajustada automaticamente para manter a proporção da imagem */
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.limite{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-tarefa{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.btn-acoes{
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .limite {
+        max-width: 140px;
+    }
+
+    .cards{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .btn{
+        width: 100%;
+    }
+    
+        .mensagem {
+            max-width: 140px;
+        }
+    
+        .df{
+            display: flex;
+            flex-direction: column;
+        }
+}
+
+#ModalVerificarONG {
+    z-index: 1050;
+    /* Defina um valor adequado para a primeira modal */
+}
+
+#ModalEditarONG {
+    z-index: 1060;
+    /* Defina um valor maior para a segunda modal */
+}
