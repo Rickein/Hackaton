@@ -32,9 +32,10 @@ async function inserirUsuario(req,res){
 
 async function deslogar(req, res) {
     res.cookie('usuario', null, { maxAge: 0 });
+    res.cookie('usuarioTipo', null, { maxAge: 0 });
     res.status(200).json({ resultado: 'Deslogado' });
 }
 
 module.exports = {
-    autenticarLogin,inserirUsuario
+    autenticarLogin,inserirUsuario,deslogar
 }

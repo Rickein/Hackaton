@@ -347,6 +347,36 @@ function validarEmail(email) {
     return re.test(email);
 }
 
+function Deslogar(){
+
+    $(`.body-loader`).show();
+    $.ajax({
+        type: "POST",
+        url: "api/Logout",
+        contentType: 'application/json',
+        success: function (r) {
+            if (r.resultado === "Deslogado") {
+                window.location.href = "/Login";
+            } else {
+                Swal.fire({
+                    title: "Algo deu Errado",
+                    text: r.mensagem,
+                    icon: "info",
+                });
+            }
+        },
+        error: function (err) {
+            Swal.fire({
+                title: "Erro",
+                text: "Não foi possível deslogar",
+                icon: "error",
+            });
+        },
+        dataType: "json"
+    });
+    $('.body-loader').hide();
+}
+
 
 function Carregamento() {
     $('.body-loader').toggle();

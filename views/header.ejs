@@ -1,0 +1,59 @@
+<header id="header-navbar" class="content-mini content-mini-full" style="background-color: #a48ad4;">
+<div class="content-boxed">
+    <ul class="nav-header pull-right">
+        <li class="hidden-md hidden-lg">
+            <button class="btn btn-link text-white pull-right" data-toggle="class-toggle"
+                data-target=".js-nav-main-header" data-class="nav-main-header-o" type="button">
+                <i class="fa fa-navicon"></i>
+            </button>
+        </li>
+    </ul>
+    <ul class="js-nav-main-header nav-main-header pull-right">
+        <li class="text-right hidden-md hidden-lg">
+            <button class="btn btn-link text-white" data-toggle="class-toggle"
+                data-target=".js-nav-main-header" data-class="nav-main-header-o" type="button">
+                <i class="fa fa-times"></i>
+            </button>
+        </li>
+        <li>
+            <a href="/Voluntariado">Inicio</a>
+        </li>
+        <li>
+            <a href="/Voluntarios">Usuarios</a>
+        </li>
+        <li>
+            <a href="/ONGs">ONGs</a>
+        </li>
+        <li>
+            <div class="btn-group">
+                <button class="btn btn-user btn-image dropdown-toggle" data-toggle="dropdown" type="button">
+                    <img src="../public/imgs/icon-user.png" alt="Avatar">
+                    <span class="caret text-white"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right menu-user">
+                    <li>
+                        <a class="text-white" tabindex="-1" href="/MeuPerfil">
+                            <%= Usuario %>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" tabindex="-1" href="#" onclick="Deslogar();">
+                            <i class="si si-logout pull-right"></i>Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <ul class="nav-header pull-left">
+        <li class="header-content">
+            <a class="h5" href="frontend_home.html" style="display: flex;
+            text-align: center;
+            align-items: center;">
+                 <i class="si si-emoticon-smile text-primary fa-2x text-white"></i>
+                 <span class="push-10-l h4 font-w600 text-white">Voluntariado</span>
+            </a>
+        </li>
+    </ul>
+</div>
+</header>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectando voluntarios</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+</head>
+
+<body>
+
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+
+        <%- include('header.ejs') %>
+
+            <main id="main-container">
+                <div class="bg-white">
+                    <section class="content content-boxed overflow-hidden">
+                        <div class="row items-push-2x push-100-t nice-copy">
+                            <div class="col-sm-6 visibility-hidden" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <h3 class="h5 font-w600 text-uppercase push-5"><i
+                                        class="fa fa-cog text-primary push-5-r"></i> Como funciona
+                                </h3>
+                                <p>O sistema oferece um conjunto de ferramentas para
+                                    facilitar a organização de atividades voluntárias.
+                                    Neste projeto será possivel Gerenciar informações sobre ONGs e Gerenciar usuarios .
+                                </p>
+                            </div>
+                            <div class="col-sm-6 visibility-hidden" data-toggle="appear" data-timeout="150"
+                                data-class="animated fadeInDown">
+                                <h3 class="h5 font-w600 text-uppercase push-5"><i
+                                        class="fa fa-heart text-city push-5-r"></i>Projeto</h3>
+                                <p>Este projeto faz parte do Hackaton da pós graduação em Dev Foundations da faculdade
+                                    FIAP
+                                    onde o desafio é colocar em pratica o que foi aprendido em aula com um prazo curto
+                                    para desenvolvimento</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row items-push push-20-t text-center">
+                    <div class="col-sm-12 push-10-t">
+                        <p class="font-w600 text-uppercase push-5"><i
+                                class="fa fa-caret-down text-primary push-10-r"></i>Funcionalidades disponiveis em
+                            nossos sistemas<i class="fa fa-caret-down text-primary push-10-l"></i></p>
+                    </div>
+                </div>
+                <section class="content content-boxed overflow-hidden">
+                    <div class="push-50-t push-50">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-4">
+                                <a class="block block-rounded block-link-hover2 border"
+                                    href="/Voluntarios">
+                                    <div
+                                        class="block-content block-content-full text-center bg-city ribbon ribbon-bookmark ribbon-crystal">
+                                        <div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden"
+                                            data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                                            <i class="si si-users text-white-op"></i>
+                                        </div>
+                                        <div class="text-white-op">
+                                            <em>Gerenciamento de Voluntarios</em>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="font-s12 text-center push">Cadastro e gestão de Voluntarios</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-4">
+                                <a class="block block-rounded block-link-hover2 border"
+                                    href="/ONGs">
+                                    <div
+                                        class="block-content block-content-full text-center bg-flat ribbon ribbon-bookmark ribbon-crystal">
+                                        <div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden"
+                                            data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                                            <i class="fa fa-slideshare text-white-op"></i>
+                                        </div>
+                                        <div class="text-white-op">
+                                            <em>Gerenciamento de ONGs</em>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="font-s12 text-center push">Cadastro e gestão de ONGs</div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 col-lg-4 bg-gray-light">
+                                <a class="block block-rounded block-link-hover2 border"
+                                    href="/MeuPerfil">
+                                    <div
+                                        class="block-content block-content-full text-center bg-modern-dark ribbon ribbon-bookmark ribbon-crystal">
+                                        <div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden"
+                                            data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                                            <i class="si si-eyeglasses text-white-op"></i>
+                                        </div>
+                                        <div class="text-white-op">
+                                            <em>Gerenciamento de Perfil</em>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="font-s12 text-center push">Meu Perfil</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+    </div>
+
+    <%- include('footer.ejs') %>
+
+</body>
+
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/jquery-ui/jquery-ui.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/pages/login.js"></script>
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear', 'appear-countTo']);
+    });
+</script>
