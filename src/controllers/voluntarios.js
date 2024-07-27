@@ -1,7 +1,7 @@
 const { consultaUsuarios } = require("../querys/usuarios");
 async function telaInicial(req, res) {
     const usuario = req.cookies.usuario;
-    if (usuario != null) {
+    if (usuario == null) {
         return res.redirect('Login');
     }
     voluntarios = await consultaUsuarios();
