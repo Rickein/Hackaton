@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectando voluntarios</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/voluntarios.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+    <link rel="stylesheet" href="/public/styles/css/loader.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/ONGS.css">
+
+</head>
+
+<body>
+
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+        <%- include('header.ejs') %>
+
+            <main id="main-container">
+                <div class="bg-amethyst-light">
+                    <section class="content content-full content-boxed push-50-t">
+                        <div class="push-20-t push-20 text-center">
+                            <h1 class="h2 text-white push-10 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">Gestão de ONGs</h1>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="content content-narrow">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="block block-themed block-rounded block-bordered">
+                                <div class="block-header bg-amethyst text-white">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" class="btn" data-toggle="modal"
+                                                data-target="#ModalNovaONG">
+                                                <i class="fa fa-plus pull-right push-5-r text-white"></i>
+                                                <span class="hidden-xs text-white">Nova ONG</span></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">Ongs</h3>
+                                </div>
+                                <div class="block-content">
+                                    <div class="push-10-l">
+                                        <table
+                                            class="table table-hover table-hover table-vcenter table-responsive animated fadeIn"
+                                            data-toggle="appear" id="table-1" data-class="animated fadeIn">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Localização</th>
+                                                    <th class="hidden-xs">Area de atuação</th>
+                                                    <th class="text-center">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <% Ongs.forEach(e=> { %>
+                                                    <tr>
+                                                        <td class="font-w600 text-primary-dark">
+                                                            <%= e.nome_ong %>
+                                                        </td>
+                                                        <td class="font-w600 text-primary-dark limite estado">
+                                                            <%= e.estado %>
+                                                        </td>
+                                                        <td class="font-w600 text-primary-dark hidden-xs atuacao">
+                                                            <%= e.id_Area_atuacao %>
+                                                        </td>
+                                                        <td class="text-center flex">
+                                                            <div class="btn-acoes">
+                                                                <button class="btn-rounded btn btn-sm btn-info push-5-r"
+                                                                    onclick="AbrirModalVerificarONG('<%= e.id_ong %>')"
+                                                                    type="button" data-toggle="tooltip" title=""
+                                                                    data-original-title="Verificar ONG"><i
+                                                                        class="si si-info"></i></button>
+                                                                <button
+                                                                    class="btn-rounded btn btn-sm btn-warning push-5-r"
+                                                                    onclick="AbrirModalAlterarONG('<%= e.id_ong %>')"
+                                                                    type="button" data-toggle="tooltip" title=""
+                                                                    data-original-title="Alterar ONG"><i
+                                                                        class="fa fa-pencil"></i></button>
+                                                                <button class="btn-rounded btn btn-sm btn-danger"
+                                                                    type="button"
+                                                                    onclick="RemoverONG('<%= e.id_ong %>')"
+                                                                    data-toggle="tooltip" title=""
+                                                                    data-original-title="Remover ONG"><i
+                                                                        class="fa fa-times"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+    </div>
+
+    <div class="modal fade in" id="ModalNovaONG" tabindex="0" role="dialog" aria-labelledby="ModalNovaONG"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-amethyst">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="modal" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Nova Organização</h3>
+                </div>
+                <div class="modal-body bg-gray-lighter">
+                    <form id="FormNovaTarefa" class="form-horizontal push-5-t" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovaONGNome">Nome da Organização</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="NovaONGNome" name="NovaONGNome"
+                                        placeholder="Informe a ONG" required>
+                                    <span class="input-group-addon"><i class="si si-users"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovaONGLocalizacao">Localização</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select name="Tipo" id="NovaONGLocalizacao" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <% Estados.forEach(e=> { %>
+                                            <option value='<%= e.sigla_estado %>'>
+                                                <%= e.nome_estado %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <span class="input-group-addon"><i class="si si-globe-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovaONGDescricao">Descrição</label>
+                            <div class="col-xs-12">
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control col-xs-12" rows="6" id="NovaONGDescricao"
+                                        name="NovaONGDescricao" placeholder="Informe a Descricao" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovaONGAtuacao">Area de Atuação</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select name="Tipo" id="NovaONGAtuacao" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <% AreasAtuacao.forEach(e=> { %>
+                                            <option value='<%= e.id_Area_atuacao %>'>
+                                                <%= e.atuacao %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <span class="input-group-addon"><i class="si si-wrench"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovaONGPrazo">Contato</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="js-datetimepicker form-control" type="text" id="NovaONGContato"
+                                        name="NovaONGContato" placeholder="Informe um telefone para contato">
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <div class="col-xs-12">
+                            <button type="button" type="button" onclick="NovaOrganizacao()"
+                                class="block-content block-content-full block-content-mini text-center text-white bg-success btn">
+                                <span class="font-w600 text-uppercase text-center badge-default">
+                                    <i class="fa fa-plus push-5-r"></i>Adicionar Organização</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="ModalEditarONG" tabindex="0" role="dialog" aria-labelledby="ModalEditaONG"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-amethyst">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="modal" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Editar Organização</h3>
+                </div>
+                <div class="modal-body bg-gray-lighter">
+                    <form id="FormNovaTarefa" class="form-horizontal push-5-t" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="EditarONGNome">Nome da Organização</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="EditarONGNome" name="EditarONGNome"
+                                        placeholder="Informe a ONG" required>
+                                    <span class="input-group-addon"><i class="si si-users"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="EditarONGLocalizacao">Localização</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select name="Tipo" id="EditarONGLocalizacao" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <option value="1">São Paulo</option>
+                                        <option value="2">Rio</option>
+                                    </select>
+                                    <span class="input-group-addon"><i class="si si-globe-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="EditarONGDescricao">Descrição</label>
+                            <div class="col-xs-12">
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control col-xs-12" rows="6" id="EditarONGDescricao"
+                                        name="EditarONGDescricao" placeholder="Informe a Descricao" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="EditarONGAtuacao">Area de Atuação</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select name="Tipo" id="EditarONGAtuacao" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <option value="1">Erradicação da pobreza</option>
+                                        <option value="2">Educação de qualidade</option>
+                                    </select>
+
+                                    <!-- https://www.risu.com.br/ongs -->
+                                    <span class="input-group-addon"><i class="si si-wrench"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="EditarONGPrazo">Contato</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="js-datetimepicker form-control" type="text" id="EditarONGContato"
+                                        name="EditarONGContato" placeholder="Informe o prazo Final">
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input class="" type="hidden" id="IdONG" name="IdONG" value="">
+                    </form>
+                    <div class="modal-footer">
+                        <div class="col-xs-12">
+
+                            <button type="button" type="button" onclick="EditarOrganizacao()"
+                                class="block-content block-content-full block-content-mini text-center text-white bg-success btn">
+                                <span class="font-w600 text-uppercase text-center badge-default">
+                                    <i class="fa fa-plus push-5-r"></i>Editar Organização</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="ModalVerificarONG" tabindex="-1" role="dialog" aria-labelledby="ModalVerificarONG"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout modal-lg" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-amethyst">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Organização</h3>
+                </div>
+                <div class="modal-body bg-gray-lighter">
+                    <div class="content content-boxed">
+                        <div class="row cards">
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i id="flag" class="si si-home text-smooth-dark"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Organização</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-smooth-dark">
+                                        <span id="ConsultaNomeONG"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i id="flag" class="si si-compass text-amethyst"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Localização</p>
+                                    </div>
+                                    <div id="cardFlag"
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-amethyst">
+                                        <span id="ConsultaLocalizacaoONG"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="fa fa-heart text-city"></i>
+                                        </div>
+                                        <p class="text-center push-20-t nw">Area de Atuação</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center bg-city text-white">
+                                        <span id="ConsultaAtuacaoONG"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="si si-call-in text-flat"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Contato</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-flat">
+                                        <span id="ConsultaContatoONG"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content">
+                                        <h3 id="ConsultaAssunto" class="block-title">Descrição</h3>
+                                    </div>
+                                    <div class="block-content descricao">
+                                        <p id="ConsultaDescricaoONG"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row df">
+                            <div class="col-xs-12 col-sm-12 animated fadeInDown" data-toggle="appear">
+                                <div class="block df bg-gray-lighter">
+                                    <div class="col-xs-12 col-sm-6 bg-gray-lighter">
+                                        <div class="block text-center">
+                                            <ul class="list list-simple list-li-clearfix  bg-gray-lighter">
+                                                <li>
+                                                    <div class="item item-circle  pull-left">
+                                                        <i class="si si-users text-default"></i>
+                                                    </div>
+                                                    <div class="df">
+                                                        <h5 class="push-10-t">Voluntários Incritos na ONG</h5>
+                                                        <div id="ConsultaVoluntáriosONG" class="font-s36"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-6 bg-gray-lighter">
+                                        <div class="block text-center">
+                                            <ul class="list list-simple list-li-clearfix  bg-gray-lighter">
+                                                <li>
+                                                    <button type="button" type="button"
+                                                        onclick="AbrirModalAdicionarVoluntario()"
+                                                        class="btn-rounded block-content-full block-content-mini text-center text-white bg-success btn">
+                                                        <span class="font-w600 text-center badge-default">
+                                                            <i class="si si-plus push-5-r"></i>Inscrever
+                                                            Voluntário</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div hidden id="ConsultaIdONG"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="ModalAdicionarVoluntario" tabindex="1" role="dialog"
+        aria-labelledby="ModalAdicionarVoluntario" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-amethyst">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="modal" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Inserir Voluntário</h3>
+                </div>
+                <div class="modal-body bg-gray-lighter">
+                    <form id="FormNovaTarefa" class="form-horizontal push-5-t" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="InserirVoluntarioONG">Nome da Organização</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="InserirVoluntarioONGNome"
+                                        name="InserirVoluntarioONG" placeholder="Informe a ONG" value="ABCD Nossa Casa"
+                                        disabled>
+                                    <span class="input-group-addon"><i class="si si-users"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="InserirVoluntarioONGVoluntario">Voluntário</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select name="Tipo" id="InserirVoluntarioONGVoluntario" class="form-control">
+                                        <option value="">Selecione o Voluntário</option>
+                                        <option value="1">Rick</option>
+                                        <option value="2">Emerson</option>
+                                    </select>
+                                    <span class="input-group-addon"><i class="fa fa-child"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input class="" type="hidden" id="InserirVoluntarioONGId" name="InserirVoluntarioONGId"
+                            value="">
+                    </form>
+                    <div class="modal-footer">
+                        <div class="col-xs-12">
+
+                            <button type="button" type="button" onclick="InscreverVoluntario()"
+                                class="btn-rounded block-content block-content-full block-content-mini text-center text-white bg-success btn">
+                                <span class="font-w600 text-uppercase text-center badge-default">
+                                    <i class="fa fa-plus push-5-r"></i>Adicionar Voluntário</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer.ejs') %>
+</body>
+
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/jquery-ui/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/toastr.min.js"></script>
+
+<script src="/public/js/pages/ONGS.js"></script>
+<script src="/public/js/app.js"></script>
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear', 'appear-countTo']);
+    });
+</script>

@@ -1,18 +1,19 @@
+
 module.exports = (sequelize, DataTypes) => {
-  const Tipo_usuario = sequelize.define('Tipo_usuario', {
-    id_tipo_usuario: {
+  const Area_Atuacao = sequelize.define('Area_Atuacao', {
+    id_Area_atuacao: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    tipo_usuario: {
+    atuacao: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   }, {
-    tableName: 'Tipo_usuario', 
-    timestamps: false, 
+    tableName: 'Area_Atuacao',
+    timestamps: false,
   });
 
-  return Tipo_usuario;
+  return Area_Atuacao;
 };

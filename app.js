@@ -39,6 +39,11 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/', (req, res) => {
+    res.redirect('/Login');
+});
+
+
 const Login = require("./src/routes/Login");
 app.use('/Login', Login);
 
@@ -47,6 +52,9 @@ app.use('/Voluntariado', Voluntariado);
 
 const Voluntarios = require("./src/routes/Voluntarios");
 app.use('/Voluntarios', Voluntarios);
+
+const ONGs = require("./src/routes/ONGs");
+app.use('/ONGs', ONGs);
 
 const Api = require("./src/routes/api");
 app.use('/api', Api);

@@ -64,19 +64,19 @@
 
                                 <% Voluntarios.forEach(e => { %>
                                         <div class="col-md-4 visibility-hidden" data-toggle="appear"
-                                            data-class="animated zoomIn">
+                                            data-class="animated zoomIn">+
                                             <div class="block block-rounded border">
                                                 <div class="block-header  border-b">
                                                     <ul class="block-options">
                                                         <li>
                                                             <button type="button" title="Editar"
                                                                 onclick="AbrirModalEditarVoluntario('<%= e.id_usuarios%>')"><i
-                                                                    class="si si-pencil"></i></button>
+                                                                class="si si-pencil"></i></button>
                                                         </li>
                                                         <li>
                                                             <button type="button" title="Excluir"
                                                                 onclick="RemoverVoluntario('<%= e.id_usuarios%>')"><i
-                                                                    class="si si-close"></i></button>
+                                                                class="si si-close"></i></button>
                                                         </li>
                                                     </ul>
                                                     <h3 class="block-title"><%= e.nome_completo_usuarios%></h3>
